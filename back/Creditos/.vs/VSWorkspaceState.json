@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Controllers",
+    "\\Domain",
+    "\\Domain\\Model",
+    "\\Domain\\UseCase",
+    "\\DrivenAdapters",
+    "\\DrivenAdapters\\SqlServer",
+    "\\Migrations",
+    "\\obj"
+  ],
+  "SelectedNode": "\\Controllers\\RouletteController.cs",
+  "PreviewInSolutionExplorer": false
+}
