@@ -1,0 +1,72 @@
+<h2>Gestión de Estudiantes</h2>
+
+<!-- Formulario para agregar/editar -->
+<form (ngSubmit)="guardarEstudiante()">
+  <input type="text" [(ngModel)]="estudianteForm.nombre" name="nombre" placeholder="Nombre" required>
+
+  <!-- Combo de Créditos -->
+   <label for="creditoId">Créditos:</label>
+  <select [(ngModel)]="estudianteForm.creditoId" name="creditoId" required>
+    <option value="">Seleccione créditos</option>
+    <option *ngFor="let credito of creditos" [value]="credito.id">
+      {{ credito.totalCredito }}
+    </option>
+  </select>
+
+ <!-- Lista de Materias con Checkboxes -->
+<div *ngFor="let materia of materias">
+  <label>
+    <input
+      type="checkbox"
+      [value]="materia.id"
+      (change)="onMateriaChange($event)"
+      [checked]="estudianteForm.materiaIds?.includes(materia.id)"
+    />
+    {{ materia.nombre }}
+  </label>
+</div>
+
+<p *ngIf="materiaError" style="color:red">{{ materiaError }}</p>
+
+
+
+  <button type="submit">{{ modoEdicion ? 'Actualizar' : 'Agregar' }}</button>
+  <button type="button" *ngIf="modoEdicion" (click)="cancelarEdicion()">Cancelar</button>
+</form>
+
+<!-- Lista de estudiantes -->
+<ul>
+  <li *ngFor="let estudiante of estudiantes">
+    {{ estudiante.nombre }} 
+    <button (click)="editarEstudiante(estudiante)">Editar</button>
+    <button (click)="eliminarEstudiante(estudiante.id)">Eliminar</button>
+  </li>
+</ul>
+
+<button (click)="cargarTodosLosEstudiantes()">Ver todos los estudiantes</button>
+
+<button (click)="verCompaneros(idEstudianteGuardado!)" [disabled]="!idEstudianteGuardado">
+  Ver compañeros de clase
+</button>
+
+<div *ngIf="nombresEstudiantes.length > 0">
+  <h3>Todos los estudiantes registrados:</h3>
+  <ul>
+    <li *ngFor="let nombre of nombresEstudiantes">
+      {{ nombre }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="companeros.length > 0">
+  <h3>Compañeros con los que compartirá clase:</h3>
+  <ul>
+    <li *ngFor="let nombre of companeros">
+      {{ nombre }}
+    </li>
+  </ul>
+</div>
+
+
+
+<p *ngIf="mensaje">{{ mensaje }}</p>
